@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+h1 {
+margin:5px;
+padding-left:10px;
+padding-right:10px;
+background:#FFF;
+color:#06F;
+width:100%;
+font-size:36px;
+
+}
+
+.test {
+margin:5px;
+padding-left:10px;
+padding-right:10px;
+background:#FFF;
+color:#F00;
+width:100%;
+font-size:36px;
+}
