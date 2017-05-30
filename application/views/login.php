@@ -5,8 +5,8 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<meta name="keywords" content="HTML5 Admin Template kokoko" />
-		<meta name="description" content="Porto Admin - Responsive HTML5 Template kokoko">
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
 
 		<!-- Mobile Metas -->
@@ -91,11 +91,11 @@
 									<!-- untuk PC-->
                                     <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg"   id="btnlogin">Sign In</button>
                                     <?php } else { ?>
-									
+
 									<!-- untuk Smartphone-->
                                     <button type="submit" class="btn btn-primary hidden-xs"  id="btnlogin">Sign In</button>
                                     <?php } ?>
-									
+
 								</div>
 							</div>
 
@@ -116,19 +116,19 @@
 		<script src="<?php echo base_url(); ?>assets/porto/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="<?php echo base_url(); ?>assets/porto/vendor/magnific-popup/jquery.magnific-popup.js"></script>
 		<script src="<?php echo base_url(); ?>assets/porto/vendor/jquery-placeholder/jquery-placeholder.js"></script>
-		
+
 		<!-- Theme Base, Components and Settings -->
 		<script src="<?php echo base_url(); ?>assets/porto/javascripts/theme.js"></script>
-		
+
 		<!-- Theme Custom -->
 		<script src="<?php echo base_url(); ?>assets/porto/javascripts/theme.custom.js"></script>
-		
+
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo base_url(); ?>assets/porto/javascripts/theme.init.js"></script>
 
-<!-- scripts --> 
-<script src="<?php echo base_url(); ?>assets/js/jquery.js"></script> 
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script> 
+<!-- scripts -->
+<script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 <script>
 
             $(document).ready(function() {
