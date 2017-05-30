@@ -5,8 +5,8 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<meta name="keywords" content="HTML5 Admin Template xxxx" />
-		<meta name="description" content="Porto Admin - Responsive HTML5 Template xxxx">
+		<meta name="keywords" content="HTML5 Admin Template kokoko" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template kokoko">
 		<meta name="author" content="okler.net">
 
 		<!-- Mobile Metas -->
