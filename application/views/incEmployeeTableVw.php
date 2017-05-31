@@ -266,6 +266,7 @@
 
         				  $(".panel-body #employeeId").val(arrData[0]);
 									$(".panel-body #myAction").val("edit");
+									$(".panel-body #employeeId").prop('readonly', true);						
                   $(".panel-body #employeeFirstName").val(arrData[1]);
                   $(".panel-body #employeeLastName").val(arrData[2]);
         				  $("#departmentId").select2('val',arrData[3]);

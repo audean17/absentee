@@ -19,7 +19,7 @@
               <h2 class="panel-title"><?php echo $titleTable;?></h2>
             </header>
             <div class="panel-body">
-          
+
                 <a class="modal-with-form btn btn-default" href="#modalForm" data-target="#modalForm" data-from="add">Add Data</a>
 
                 <!-- Modal Form -->
@@ -252,11 +252,16 @@
 
 
                                 </div>
-                                <div id="upload" class="tab-pane">
 
+                                <div id="
+                                " class="tab-pane">
+                                <form action='pegawai/simpan' method='post' enctype='multipart/form-data'>
                                   <input type="file" name="userfile" size="20" />
+                                  <button type='submit'>Upload</button>
+                                </form>
 
                                  </div>
+
                                </div>
                             </div>
                      </div>
@@ -361,7 +366,7 @@
                             var permanentDate = $('input[name=permanentDate]').val();
                             var tempatLahir = $('input[name=tempatLahir]').val();
                             var tanggalLahir = $('input[name=tanggalLahir]').val();
-                            var alamat = $('input[name=alamat]').val();
+                            var alamat = $('textarea#alamat').val();
                             var agama = $('select[name=agama]').val();
                             var married = $('select[name=married]').val();
                             var status = $('select[name=status]').val();
@@ -388,7 +393,7 @@
                                 $('.alert-error').removeClass('hide').html('employee status harus dipilih');
         						return false;
                             } else if (jointDate == "" || jointDate=="undefined") {
-                                $('.alert-error').removeClass('hide').html('joint Date harus dipilih');
+                                $('.alert-error').removeClass('hide').html('joint Date harus diisi');
         						return false;
                             } else if (endOfContract == "" || endOfContract=="undefined") {
                                 $('.alert-error').removeClass('hide').html('end Of Contract harus diisi');
@@ -403,10 +408,10 @@
                                 $('.alert-error').removeClass('hide').html('tanggal Lahir harus diisi');
                     return false;
                             } else if (alamat == "" || alamat=="undefined") {
-                                $('.alert-error').removeClass('hide').html('alamat harus diisi');
+                                $('.alert-error').removeClass('hide').html('alamat view harus diisi');
                     return false;
                             } else if (agama == "" || agama=="-1" || agama=="undefined") {
-                                $('.alert-error').removeClass('hide').html('agama harus diisi');
+                                $('.alert-error').removeClass('hide').html('agama harus dipilih');
                     return false;
                             } else if (married== "" || married=="-1" || married=="undefined") {
                                 $('.alert-error').removeClass('hide').html('status married harus dipilih');
@@ -415,6 +420,7 @@
                                 $('.alert-error').removeClass('hide').html('status harus dipilih');
                     return false;
                             } else {
+
         								if (myAction == "add" ) {
         							doCreate(employeeId, employeeFirstName, employeeLastName, departmentId, designationId, titleId, employeeStatusId, jointDate, endOfContract, permanentDate, tempatLahir, tanggalLahir, alamat, agama, married, status);
         						}else{
@@ -424,7 +430,7 @@
                         });
 
                 function doCreate(employeeId, employeeFirstName, employeeLastName, departmentId, designationId, titleId, employeeStatusId, jointDate, endOfContract, permanentDate, tempatLahir, tanggalLahir, alamat, agama, married, status) {
-        					$.ajax({
+                  $.ajax({
                                 type: "POST",
         						url: "<?php echo site_url("pegawai/create");?>",
         						data: {
@@ -510,7 +516,7 @@
          				  $(".tab-content #permanentDate").val("");
                   $(".tab-content #tempatLahir").val("")
                   $(".tab-content #tanggalLahir").val("");
-                  $(".tab-content #alamat").val("");
+                  $("textarea#alamat").val("");
           				$("#agama").select2('val',-1);
                   $("#married").select2('val',-1);
                   $("#status").select2('val',-1);
@@ -520,6 +526,7 @@
         				  arrData=$(this).data('id').split("|");
 
                   $(".tab-content #employeeId").val(arrData[0]);
+                  $(".tab-content #employeeId").prop('readonly', true);
                   $(".tab-content #myAction").val("edit");
                   $(".tab-content #employeeFirstName").val(arrData[1]);
                   $(".tab-content #employeeLastName").val(arrData[2]);
@@ -532,7 +539,7 @@
                   $(".tab-content #permanentDate").val(arrData[9]);
                   $(".tab-content #tempatLahir").val(arrData[10]);
                   $(".tab-content #tanggalLahir").val(arrData[11]);
-                  $(".tab-content #alamat").val(arrData[12]);
+                  $("textarea#alamat").val(arrData[12]);
         				  $("#agama").select2('val',arrData[13]);
                   $("#married").select2('val',arrData[14]);
                   $("#status").select2('val',arrData[15]);

@@ -48,6 +48,27 @@ class Pegawai extends CI_Controller {
         }
     }
 
+    public function simpan()
+    {
+        $this->load->library('pegawai');
+        $config['upload_path'] = './assets/images/foto/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+        $config['max_size'] = '2048';
+        $config['max_width']  = '1288';
+        $config['max_height']  = '768';
+
+        $this->initialize($config);
+
+        if ($this->do_upload('userfile'))
+        {
+            echo "berhasil Upload";
+        }
+        else
+        {
+            echo "Gagal";
+        }
+    }
+
     public function index($offset = null) {
 
         $data['linkForm'] = site_url($this->linkController.'/create');
@@ -398,9 +419,6 @@ public function gettwo($mydata) {
     $data['mnHrmLiAbsenteeClass']="";
     $data['mnHrmliPengajuanClass']="";
     $data['mnHrmliManagerApproveClass']="";
-    //	$data['mnTransactionLiProjectsClass']="";
-    //	$data['mnTransactionLiBusnissBenefitsClass']="";
-    //	$data['mnTransactionLiMembersClass']="";
 
     $data['mnDataGALiParentClass']="class=\"nav-parent\"";
     $data['mnDataGALiInventoryClass']="";
@@ -414,7 +432,6 @@ public function gettwo($mydata) {
     $data['mnAdministratorLiParentClass']="class=\"nav-parent\"";
     $data['mnAdministratorLiGroupsClass']="";
     $data['mnAdministratorLiUsersClass']="";
-
 
     $data['mnToolsLiParentClass']="class=\"nav-parent\"";
     $data['mnToolsLiUploadAbsentClass']="";
@@ -447,10 +464,10 @@ public function gettwo($mydata) {
       $jointDate=$this->input->post("jointDate");
       $endOfContract=$this->input->post("endOfContract");
       $permanentDate=$this->input->post("permanentDate");
-      $tempatlahir=$this->input->post("tempatLahir");
-      $tanggallahir=$this->input->post("tanggalLahir");
+      $tempatLahir=$this->input->post("tempatLahir");
+      $tanggalLahir=$this->input->post("tanggalLahir");
       $alamat=$this->input->post("alamat");
-      $agama=$this->input->post("agama");      
+      $agama=$this->input->post("agama");
       $married=$this->input->post("married");
       $status=$this->input->post("status");
 
@@ -527,7 +544,7 @@ public function gettwo($mydata) {
                     "success" => 0
               );
       }else if (strlen($alamat)==0 || $alamat == "" ){
-              $msg = "Alamatharus diisi. ";
+              $msg = "Alamat controler create harus diisi. ";
               $data = array(
                     "msg" => $msg,
                     "success" => 0
@@ -551,6 +568,7 @@ public function gettwo($mydata) {
                     "success" => 0
               );
             } else {
+
                     try {
                       // $id=$this->generateKey();
                       $row['employee_id'] = $employeeId;
@@ -566,8 +584,8 @@ public function gettwo($mydata) {
                       $row['tempat_lahir'] = $tempatLahir;
                       $row['tanggal_lahir'] = $tanggalLahir;
                       $row['alamat'] = $alamat;
-                      $row['agama'] = $agama;
-                      $row['married'] = $married;
+                      $row['religi_id'] = $agama;
+                      $row['married_id'] = $married;
                       $row['status'] = $status;
 
                       $row['dt_etr'] = date('Y-m-d H:i:s');
@@ -583,6 +601,7 @@ public function gettwo($mydata) {
                         "msg" => $msg,
                         "success" => 1
                       );
+
                     } catch (exception $e) {
                             $data = array(
                                 "msg" => $e,
@@ -590,8 +609,8 @@ public function gettwo($mydata) {
                             );
                         }
 
-                    }
 
+                    }
                     echo json_encode($data);
                     }
 
@@ -638,7 +657,7 @@ public function gettwo($mydata) {
               $jointDate=$this->input->post("jointDate");
               $endOfContract=$this->input->post("endOfContract");
               $permanentDate=$this->input->post("permanentDate");
-              $tempatlahir=$this->input->post("tempatLahir");
+              $tempatLahir=$this->input->post("tempatLahir");
               $tanggalLahir=$this->input->post("tanggalLahir");
               $alamat=$this->input->post("alamat");
               $agama=$this->input->post("agama");
@@ -718,7 +737,7 @@ public function gettwo($mydata) {
                             "success" => 0
                       );
               }else if (strlen($alamat)==0 || $alamat == "" ){
-                      $msg = "Alamat harus diisi. ";
+                      $msg = "Alamat controller update harus diisi. ";
                       $data = array(
                             "msg" => $msg,
                             "success" => 0
@@ -757,8 +776,8 @@ public function gettwo($mydata) {
                                 $row['tempat_lahir'] = $tempatLahir;
                                 $row['tanggal_lahir'] = $tanggalLahir;
                                 $row['alamat'] = $alamat;
-                                $row['agama'] = $agama;
-                                $row['married'] = $married;
+                                $row['religi_id'] = $agama;
+                                $row['married_id'] = $married;
                                 $row['status'] = $status;
 
                                 $row['dt_etr'] = date('Y-m-d H:i:s');
