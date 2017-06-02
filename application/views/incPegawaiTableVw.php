@@ -213,7 +213,7 @@
                                            </div>
 
                                            <div class="form-group">
-                                              <label class="col-md-3 control-label">Range of Contract</label>
+                                              <label class="col-md-3 control-label">Contract Periode</label>
                                               <div class="col-md-9">
                                                   <div class="input-daterange input-group" data-plugin-datepicker>
                                                       <span class="input-group-addon">
@@ -253,9 +253,8 @@
 
                                 </div>
 
-                                <div id="
-                                " class="tab-pane">
-                                <form action='pegawai/simpan' method='post' enctype='multipart/form-data'>
+                                <div id="upload" class="tab-pane">
+                                <form action="pegawai/simpan/" method='post' enctype='multipart/form-data'>
                                   <input type="file" name="userfile" size="20" />
                                   <button type='submit'>Upload</button>
                                 </form>
@@ -300,8 +299,9 @@
                     <th>Marriage</th>
                     <th>Status</th>
                     <th>Action</th>
-                    <th>Pendidikan</th>
                     <th>Family</th>
+                    <th>Pendidikan</th>
+                    <th>License Training</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -328,13 +328,17 @@
                       <a class="modal-with-form" href="#modalForm" data-target="#modalForm" data-id="<?php echo $myDataSplit;?>" data-from="edit"><i class="fa fa-pencil"></i></a>
                       <a href="http://fauzan.net" onclick="javascript:confirmationAlert('<?php echo site_url("pegawai/delete/".$row->employee_id);?>','Are you sure you want to delete this row?');return false;" title="delete for this row"><i class="fa fa-trash-o"></i></a>
                     </td>
-                    <td class="Pendidikans">
-                      <a href="<?php echo site_url("pegawai/gettwo/".$row->employee_id."");?>" title="step to detail">Pendidikan<i class="glyphicon glyphicon-step-forward"></i></a>
-                    </td>
-                    </td>
                     <td class="familys">
                       <a href="<?php echo site_url("pegawai/getOne/".$row->employee_id."");?>" title="step to detail">Family<i class="glyphicon glyphicon-step-forward"></i></a>
                     </td>
+                    <td class="Pendidikans">
+                      <a href="<?php echo site_url("pegawai/gettwo/".$row->employee_id."");?>" title="step to detail">Pendidikan<i class="glyphicon glyphicon-step-forward"></i></a>
+                    </td>
+                    <td class="Licenses">
+                      <a href="<?php echo site_url("pegawai/getthree/".$row->employee_id."");?>" title="step to detail">License<i class="glyphicon glyphicon-step-forward"></i></a>
+                    </td>
+
+
                   </tr>
                                       <?php } ?>
                 </tbody>

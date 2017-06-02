@@ -33,8 +33,10 @@
 							$this->load->view('incPegawaiTableVw.php');
 						}elseif ($typePage=="detail"){
 							$this->load->view('incPegawaiFamilyTableVw.php');
-						}else{
+						}elseif ($typePage=="detail_pendidikan"){
 							$this->load->view('incPegawaiPendidikanTableVw.php');
+						}else{
+							$this->load->view('incPegawaiLicenseTableVw.php');
 						}
 					?>
 

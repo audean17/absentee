@@ -101,36 +101,28 @@ class Usergroup extends CI_Controller {
 	<script src=\"".base_url()."assets/porto/javascripts/modalfau.js\"></script>";
 
 
-	$data['mnDataMasterLiParentClass']="class=\"nav-parent\"";
-	// $data['mnDataMasterLiGroupsClass']="";
-	// $data['mnDataMasterLiRelationClass']="";
-	// $data['mnDataMasterLiBenefitTypeClass']="";
-	// $data['mnDataMasterLiBenefitClass']="";
-
-  $data['mnDataMasterLiDepartmentClass']="";
-  $data['mnDataMasterLiDesignationClass']="";
-  $data['mnDataMasterLiEmployeeClass']="";
+  $data['mnDataMasterLiParentClass']="class=\"class=\"nav-parent\"";
+	$data['mnDataMasterLiDepartmentClass']="";
+	$data['mnDataMasterLiDesignationClass']="";
+	$data['mnDataMasterLiEmployeeClass']="";
   $data['mnDataMasterLiPegawaiClass']="";
+
+  $data['mnHrmLiParentClass']="class=\"nav-parent\"";
+  $data['mnHrmLiAbsenteeClass']="";
+  $data['mnHrmliPengajuanClass']="";
+  $data['mnHrmliManagerApproveClass']="";
 
   $data['mnDataGALiParentClass']="class=\"nav-parent\"";
   $data['mnDataGALiInventoryClass']="";
 
   $data['mnDataBJBLiParentClass']="class=\"nav-parent\"";
-  $data['mnDataBJBLiBankClass']="";
-  $data['mnDataBJBLiInsuranceClass']="";
-  $data['mnDataBJBLiProductClass']="";
+	$data['mnDataBJBLiBankClass']="";
+	$data['mnDataBJBLiInsuranceClass']="";
+	$data['mnDataBJBLiProductClass']="";
   $data['mnDataBJBLiTransactionClass']="";
 
-  $data['mnHrmLiParentClass']="class=\"nav-parent\"";
-	$data['mnHrmLiAbsenteeClass']="";
-  $data['mnHrmliPengajuanClass']="";
-  $data['mnHrmliManagerApproveClass']="";
-
-	// $data['mnTransactionLiParentClass']="class=\"nav-parent\"";
-	// $data['mnTransactionLiCustomersClass']="";
-	// $data['mnTransactionLiProjectsClass']="";
-	// $data['mnTransactionLiBusnissBenefitsClass']="";
-	// $data['mnTransactionLiMembersClass']="";
+	$data['mnToolsLiParentClass']="class=\"nav-parent\"";
+	$data['mnToolsLiUploadAbsentClass']="";
 
 	$data['mnAdministratorLiParentClass']="class=\"nav-parent  nav-expanded nav-active\"";
 	$data['mnAdministratorLiGroupsClass']="class=\"nav-active\"";

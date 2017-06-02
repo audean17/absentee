@@ -10,10 +10,12 @@ class Pegawai extends CI_Controller {
     private $table = "tm_employee_affair";
     private $table_getone = "tp_employee_family";
     private $table_gettwo = "tp_employee_studi";
+    private $table_getthree = "tp_employee_license";
     // Primary key table
     private $primary = "employee_id";
     private $primary_getone = "family_id";
     private $primary_gettwo = "pendidikan_id";
+    private $primary_getthree = "pendidikan_id";
     // Field-field data yang ada di database
     private $fields = array(
         'idmenu',
@@ -48,6 +50,14 @@ class Pegawai extends CI_Controller {
         }
     }
 
+      public function upload_file()
+      {
+       echo "<form action='pegawai/simpan' method='post' enctype='multipart/form-data'>";
+       echo "<input type='file' name='userfile'>";
+       echo "<button type='submit'>Upload</button>";
+       echo "</form>";
+     }
+
     public function simpan()
     {
         $this->load->library('pegawai');
@@ -57,9 +67,9 @@ class Pegawai extends CI_Controller {
         $config['max_width']  = '1288';
         $config['max_height']  = '768';
 
-        $this->initialize($config);
+        $this->pegawai->initialize($config);
 
-        if ($this->do_upload('userfile'))
+        if ($this->pegawai->do_upload('userfile'))
         {
             echo "berhasil Upload";
         }
@@ -333,7 +343,7 @@ public function getOne($mydata) {
       $this->load->view('pgPegawaiVw', $data);
 
     }
-// ==============================
+// ===============================
 public function gettwo($mydata) {
   $data['linkForm_gettwo'] = site_url($this->linkController.'/create_gettwo');
 
@@ -450,6 +460,117 @@ public function gettwo($mydata) {
       $this->load->view('pgPegawaiVw', $data);
 
     }
+    // ==========================
+    public function getThree($mydata) {
+      $data['linkForm_getthree'] = site_url($this->linkController.'/create_getthree');
+        //$arrMydata=explode("-",$mydata);
+
+        $myEmployeeId=$mydata;
+        // $myPegawai=$myEmployeeId;
+
+        $data['listLicense'] = $this->db->query("select a.*,case when a.status = 1 then 'Yes' when a.status=0 then 'No' end as my_status,employee_first_name,license_name
+          from tp_employee_license a
+          left outer join tm_employee b on a.employee_id=b.employee_id
+          where b.employee_id= '".$myEmployeeId."' and a.status in (1,0,9) order by employee_first_name ASC")->result();
+
+          $data['licenses'] = $this->db->query("select license_id,license_name from tp_employee_license a  where a.status in (1,0,9) order by license_name ASC")->result();
+
+          $data['tittlepage']="Employee Affair";
+          $data['cssVendorSpecific']="
+          <link rel=\"stylesheet\" href=\"".base_url()."assets/porto/vendor/select2/css/select2.css\" />
+          <link rel=\"stylesheet\" href=\"".base_url()."assets/porto/vendor/select2-bootstrap-theme/select2-bootstrap.css\" />
+          <link rel=\"stylesheet\" href=\"".base_url()."assets/porto/vendor/jquery-datatables-bs3/assets/css/datatables.css\" />
+          ";
+
+          $data['userName']=$this->session->userdata('userName');
+          $data['fullname']=$this->session->userdata('userFullName');
+
+          $data['titleContent']="Employee Affair";
+          $data['LeftCaption']="<li>
+                        <a href=\"".site_url('headline')."\">
+                          <i class=\"fa fa-home\"></i>
+                        </a>
+                      </li>
+                      <li><span>Data Master</span></li>
+                      <li><span>Employee Affair</span></li>
+                      <li><span>Family</span></li>
+                      ";
+
+          $myFullName="";
+          $myDepartment="";
+
+          $query="select employee_first_name,employee_last_name,department_name
+            from tm_employee_affair a
+            inner join tm_department b on a.department_id=b.department_id
+            where employee_id = '".$myEmployeeId."'";
+          $myresult=$this->db->query($query);
+          foreach ($myresult->result() as $row)
+          {
+            $myFullName=$row->employee_first_name." ".$row->employee_last_name;
+            $myDepartment=$row->department_name;
+
+          };
+
+          $data['titleTable']=$myEmployeeId." - ".$myFullName;
+          $data['myDepartment']=$myDepartment;
+
+          $data['myEmployeeId']=$myEmployeeId;
+          // $data['myPeriodeId']=$myPeriodeId;
+
+
+          $data['vendorJavascript']="
+          <script src=\"".base_url()."assets/porto/vendor/select2/js/select2.js\"></script>
+          <script src=\"".base_url()."assets/porto/vendor/jquery-datatables/media/js/jquery.dataTables.js\"></script>
+          <script src=\"".base_url()."assets/porto/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js\"></script>
+          <script src=\"".base_url()."assets/porto/vendor/jquery-datatables-bs3/assets/js/datatables.js\"></script>
+          ";
+
+        $data['vendorJavascriptExample']="
+          <script src=\"".base_url()."assets/porto/javascripts/tables/examples.datatables.default.js\"></script>
+          <script src=\"".base_url()."assets/porto/javascripts/ui-elements/examples.modals.js\"></script>
+        ";
+
+        $data['modalfau']="
+         <link rel=\"stylesheet\" href=\"".base_url()."assets/porto/stylesheets/modalfau.css\">
+        <script src=\"".base_url()."assets/porto/javascripts/modalfau.js\"></script>";
+
+        $data['mnDataMasterLiParentClass']="class=\"nav-parent nav-expanded nav-active\"";
+        $data['mnDataMasterLiDepartmentClass']="";
+        $data['mnDataMasterLiDesignationClass']="";
+        $data['mnDataMasterLiEmployeeClass']="";
+        $data['mnDataMasterLiPegawaiClass']="class=\"nav-active\"";
+
+        $data['mnHrmLiParentClass']="class=\"nav-parent\"";
+        $data['mnHrmLiAbsenteeClass']="";
+        $data['mnHrmliPengajuanClass']="";
+        $data['mnHrmliManagerApproveClass']="";
+        //	$data['mnTransactionLiProjectsClass']="";
+        //	$data['mnTransactionLiBusnissBenefitsClass']="";
+        //	$data['mnTransactionLiMembersClass']="";
+
+        $data['mnDataGALiParentClass']="class=\"nav-parent\"";
+        $data['mnDataGALiInventoryClass']="";
+
+        $data['mnDataBJBLiParentClass']="class=\"nav-parent\"";
+        $data['mnDataBJBLiBankClass']="";
+        $data['mnDataBJBLiInsuranceClass']="";
+        $data['mnDataBJBLiProductClass']="";
+        $data['mnDataBJBLiTransactionClass']="";
+
+        $data['mnAdministratorLiParentClass']="class=\"nav-parent\"";
+        $data['mnAdministratorLiGroupsClass']="";
+        $data['mnAdministratorLiUsersClass']="";
+
+
+        $data['mnToolsLiParentClass']="class=\"nav-parent\"";
+        $data['mnToolsLiUploadAbsentClass']="";
+
+        $data['typePage']="detail_license";
+
+          $this->load->view('pgPegawaiVw', $data);
+
+        }
+    // ==========================
 
     public function create(){
       $row = array();
@@ -644,6 +765,19 @@ public function gettwo($mydata) {
           redirect(site_url($this->linkController)."/gettwo/".$this->input->post("employeeId"));
       }
 
+      public function create_getthree(){
+           $row = array();
+    		   $id_getthree=$this->generateKey3();
+           $row['license_id'] = $id_gettree;
+           $row['employee_id'] = $this->input->post("employeeId");
+           $row['license_name'] = $this->input->post("licenseName");
+           $row['periode'] = $this->input->post("periode");
+           $row['status'] = $this->input->post("status");
+
+           $this->db->insert($this->table_getthree, $row);
+           redirect(site_url($this->linkController)."/getthree/".$this->input->post("employeeId"));
+       }
+
   public function update(){
               $row = array();
 
@@ -812,15 +946,19 @@ public function gettwo($mydata) {
         $row['school_name'] = $this->input->post("schoolName");
         $row['studi_id'] = $this->input->post("myStudiId");
         $row['periode'] = $this->input->post("periode");
-        // $row['alamat'] = $this->input->post("alamat");
-        // $row['religi_id'] = $this->input->post("myReligiId");
-        // $row['married_id'] = $this->input->post("myMarriedId");
         $row['status'] = $this->input->post("mystatus");
-        // $row['dt_update'] = date('Y-m-d H:i:s');
-        // $row['user_update'] = $this->session->userdata('userId');
       	$this->db->where("pendidikan_id","employee_id", $id_gettwo,$employeeId)->update($this->table_gettwo, $row);
         redirect(site_url($this->linkController)."/gettwo/".$this->input->post("employeeId"));
      }
+
+     public function change_getthree($id_getthree){
+           $row = array();
+           $row['license_name'] = $this->input->post("licenseName");
+           $row['periode'] = $this->input->post("periode");
+           $row['status'] = $this->input->post("mystatus");
+           $this->db->where("license_id","employee_id", $id_getthree,$employeeId)->update($this->table_getthree, $row);
+           redirect(site_url($this->linkController)."/getthree/".$this->input->post("employeeId"));
+        }
 
     public function delete($id){
         $this->db->where($this->primary, $id);
@@ -848,6 +986,17 @@ public function gettwo($mydata) {
         $this->db->where($this->primary_gettwo, $pendidikanId);
         $this->db->delete($this->table_gettwo);
         redirect(site_url($this->linkController)."/gettwo/".$employeeId);
+    }
+
+    public function delete_getthree($id_getthree){
+      $arrMydata=array();
+        $arrMydata=explode("-",$id_getthree);
+        $lincenseId=$arrMydata[0];
+        $employeeId=$arrMydata[1];
+
+        $this->db->where($this->primary_getthree, $licenseId);
+        $this->db->delete($this->table_getthree);
+        redirect(site_url($this->linkController)."/getthree/".$employeeId);
     }
 
 	public function generateKey($additional_string="",$additional_criteria="") {
@@ -880,6 +1029,22 @@ public function gettwo($mydata) {
 				$id_gettwo=str_pad($id_gettwo,$no_of_trailing,"0",STR_PAD_LEFT);
 			};
 		return $string.$id_gettwo;
+	}
+
+  public function generateKey3($additional_string="",$additional_criteria="") {
+		$currentdate=date("ym");
+
+			$no_of_trailing=3;
+			$string="LCS";
+			$query="select max(right(".$this->primary_getthree.",".$no_of_trailing.")) as max_id
+				from ".$this->table_getthree." where left(".$this->primary_getthree.",". strlen($string) .") = '".$string."'";
+			$myresult=$this->db->query($query);
+			foreach ($myresult->result() as $row)
+			{
+				$id_getthree=($row->max_id)+1;
+				$id_getthree=str_pad($id_getthree,$no_of_trailing,"0",STR_PAD_LEFT);
+			};
+		return $string.$id_getthree;
 	}
 
 

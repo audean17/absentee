@@ -34,7 +34,7 @@ class Login extends CI_Controller {
 
     public function do_login() {
         $userName = $_POST["user"];
-        $password = md5($_POST["password"]);
+        $password = md5($_POST["password"]);   
 		//$password = "6273d06733de92a216f859ad6d2e8c40";
 
         $data = array();
